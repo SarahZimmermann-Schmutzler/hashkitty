@@ -6,10 +6,10 @@ import argparse
 import hashlib
 import itertools
 import string
-from typing import Callable, Optional
+from typing import Callable, Optional, Any
 
 
-def get_hash_function(hash_mode: int) -> Callable[[bytes], hashlib._Hash]:
+def get_hash_function(hash_mode: int) -> Callable[[bytes], Any]:
    """
     Returns the appropriate hash function based on the given hash mode.
 
@@ -17,7 +17,7 @@ def get_hash_function(hash_mode: int) -> Callable[[bytes], hashlib._Hash]:
         hash_mode (int): Hash mode identifier (0 for MD5, 1 for SHA-1, 2 for SHA-256, 3 for SHA-512).
 
     Returns:
-        Callable[[bytes], hashlib._Hash]: The hash function corresponding to the hash mode.
+        Callable[[bytes], Any]: The hash function corresponding to the hash mode.
 
     Raises:
         ValueError: If an invalid hash mode is provided.
@@ -55,13 +55,13 @@ def read_hash(args: argparse.Namespace) -> Optional[str]:
             return None
 
     
-def dictionary_attack(hash_value: str, hash_function: Callable[[bytes], hashlib._Hash], wordlist_file: str) -> Optional[str]:
+def dictionary_attack(hash_value: str, hash_function: Callable[[bytes], Any], wordlist_file: str) -> Optional[str]:
     """
     Attempts to crack the hash using a Dictionary Attack.
 
     Args:
         hash_value (str): The hash value to crack.
-        hash_function (Callable[[bytes], hashlib._Hash]): The hash function to use.
+        hash_function (Callable[[bytes], Any]): The hash function to use.
         wordlist_file (str): Path to the wordlist file.
 
     Returns:
@@ -82,13 +82,13 @@ def dictionary_attack(hash_value: str, hash_function: Callable[[bytes], hashlib.
     return None
         
 
-def brute_force_attack(hash_value: str, hash_function: Callable[[bytes], hashlib._Hash]) -> Optional[str]:
+def brute_force_attack(hash_value: str, hash_function: Callable[[bytes], Any]) -> Optional[str]:
     """
     Attempts to crack the hash using a Brute-Force Attack.
 
     Args:
         hash_value (str): The hash value to crack.
-        hash_function (Callable[[bytes], hashlib._Hash]): The hash function to use.
+        hash_function (Callable[[bytes], Any]): The hash function to use.
 
     Returns:
         Optional[str]: The cracked password if found, otherwise None.
